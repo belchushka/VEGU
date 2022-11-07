@@ -1,0 +1,37 @@
+@import "includes/reset";
+@import "includes/normalize";
+@import "variables";
+@import "fonts";
+@import "../public/fonts/Inter/stylesheet.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: $gilroy;
+}
+
+button,
+input {
+  background: none;
+  outline: none;
+  border: none;
+}
+
+.gradient_background {
+  background: linear-gradient(
+    134.33deg,
+    #ab67ff -0.08%,
+    #00d48a 98.98%
+  ) !important;
+  transition: 0.2s;
+}
+
+.mantine-1fn8md5 .ql-editor {
+  word-wrap: break-word;
+  padding: 0 !important;
+}

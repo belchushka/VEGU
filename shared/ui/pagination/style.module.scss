@@ -1,0 +1,58 @@
+@import "@gstyle/variables.scss";
+
+.body {
+  display: flex;
+  align-items: center;
+}
+
+.nav_button {
+  width: 40px;
+  height: 40px;
+  background: #f5f5fa;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+  &:hover {
+    background: #263959;
+    svg {
+      fill: white;
+    }
+  }
+
+  &_next {
+    transform: rotate(180deg);
+  }
+  cursor: pointer;
+}
+
+.pages {
+  margin: 0 30px;
+  display: flex;
+  &_inner {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 50%;
+
+    span {
+      color: black;
+      font: $font_inter;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    &_active {
+      background: #00d066;
+
+      span {
+        color: white;
+      }
+    }
+  }
+}

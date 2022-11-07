@@ -1,0 +1,12 @@
+@import "@gstyle/mixins.scss";
+
+.body {
+  img {
+    min-width: 500px;
+    max-width: 100%;
+
+    @include adaptive("xsm") {
+      min-width: auto;
+    }
+  }
+}

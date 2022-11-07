@@ -1,0 +1,19 @@
+@import "@gstyle/variables.scss";
+
+.body {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #00d48a;
+  border-radius: 5px;
+
+  span {
+    font-family: $font_inter;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+
+    color: #ffffff;
+  }
+}

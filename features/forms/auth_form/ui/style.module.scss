@@ -1,0 +1,99 @@
+@import "@styles/variables.scss";
+@import "@styles/mixins.scss";
+
+.input {
+  margin-top: 10px;
+}
+
+.input_block {
+  margin-top: 35px;
+
+  h3 {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 24px;
+    /* identical to box height, or 133% */
+
+    text-align: center;
+
+    color: #000000;
+    margin-bottom: 16px;
+  }
+}
+
+.body {
+  width: 100%;
+  &_header {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 51px;
+    margin: 0;
+    text-align: center;
+    color: #000000;
+  }
+
+  &_subtitle {
+    margin-top: 5px;
+    display: block;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    /* identical to box height, or 150% */
+
+    text-align: center;
+
+    /* #8083A3 */
+
+    color: #8083a3;
+  }
+
+  &_bottom_link {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+    /* identical to box height, or 150% */
+
+    /* #8083A3 */
+
+    color: #8083a3;
+    margin-top: 22px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    //
+    //span {
+    //  color: #00d48a;
+    //  text-decoration: underline;
+    //}
+  }
+}
+
+.submit_button {
+  margin-top: 20px;
+}
+
+.bottom_buttons {
+  display: flex;
+  justify-content: space-between;
+
+  &_register {
+    display: none;
+
+    @include adaptive("sm") {
+      display: block;
+    }
+  }
+
+  &_login {
+    display: none;
+
+    @include adaptive("sm") {
+      display: block;
+      text-align: center;
+      text-decoration: underline;
+    }
+  }
+}

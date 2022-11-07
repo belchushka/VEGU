@@ -1,0 +1,49 @@
+@import "@gstyle/variables.scss";
+
+.body {
+  border: 1px solid rgba(228, 230, 232, 0.6);
+  border-radius: 16px;
+  padding: 15px 25px;
+  font-family: $font_inter;
+  background: white;
+  box-shadow: 1px 2px 8px rgba(199, 200, 200, 0.21);
+
+  &_time {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #8083a3;
+    margin-top: 5px;
+  }
+
+  &_labels {
+    margin-bottom: 15px;
+  }
+
+  &_price {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+    margin-top: 25px;
+  }
+
+  &_buttons {
+    margin-top: 18px;
+    display: flex;
+
+    button:nth-child(2) {
+      margin-left: 10px;
+    }
+  }
+
+  h3 {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 24px;
+    color: #000000;
+  }
+}

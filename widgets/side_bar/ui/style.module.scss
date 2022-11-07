@@ -1,0 +1,54 @@
+@import "@gstyle/mixins.scss";
+
+.body {
+  min-height: 100vh;
+  padding: 28px;
+  min-width: 305px;
+  border-right: 1px solid rgba(228, 230, 232, 0.6);
+
+  @include adaptive("sm") {
+    min-height: auto;
+  }
+  @include adaptive("xsm") {
+    padding: 20px;
+  }
+}
+
+.items {
+  margin-top: 35px;
+  position: sticky;
+  top: 40px;
+  @include adaptive("xsm") {
+    position: fixed;
+    height: 100vh;
+    background: white;
+    width: 100%;
+    top: -100vh;
+    left: 0;
+    margin-top: 0;
+    z-index: 900;
+    transition: 0.2s;
+    padding: 20px;
+
+    &_opened {
+      top: 0;
+    }
+  }
+}
+
+.logo {
+  cursor: pointer;
+  @include adaptive("xsm") {
+    display: none;
+  }
+}
+
+.mobile_header {
+  display: none;
+  margin-bottom: 20px;
+  @include adaptive("xsm") {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

@@ -1,0 +1,36 @@
+@import "@gstyle/variables.scss";
+@import "@gstyle/mixins.scss";
+
+.body {
+  display: flex;
+  max-width: 100%;
+  overflow: hidden;
+  height: 100vh;
+  @include adaptive("xsm") {
+    flex-direction: column;
+  }
+}
+
+.content {
+  padding: 33px 40px;
+  flex-grow: 1;
+  overflow: auto;
+
+  @include adaptive("xsm") {
+    margin-top: 0;
+    padding: 0 20px;
+  }
+  &_title {
+    font-family: $font_inter;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 39px;
+    color: #000000;
+    margin-bottom: 30px;
+    @include adaptive("xsm") {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+  }
+}

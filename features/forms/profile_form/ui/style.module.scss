@@ -1,0 +1,12 @@
+.body {
+  max-width: 400px;
+  form {
+    margin-top: 20px;
+    & > div {
+      margin-top: 10px !important;
+    }
+  }
+  button {
+    margin-top: 20px;
+  }
+}
