@@ -1,0 +1,33 @@
+@import "@styles/variables.scss";
+
+.catalog_search {
+  padding: 0 20px;
+  position: relative;
+  max-width: 795px;
+  width: 100%;
+  z-index: 3;
+  input {
+    padding: 20px 30px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0px 3px 4px rgba(153, 155, 168, 0.25);
+    border-radius: 31px;
+    width: 100%;
+    background: white;
+  }
+
+  &_icon {
+    width: 46px;
+    height: 46px;
+    background: #00d066;
+    border-radius: 50%;
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

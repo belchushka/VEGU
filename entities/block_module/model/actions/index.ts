@@ -1,9 +1,8 @@
 import { AppThunk } from "@box/store";
 import { $autHost } from "@box/shared";
 import {
-  addModule,
+  addModule, getCourseBlockById, getCourseBlocks,
   IBlock,
-  setBlocks,
   setModule,
   setModules,
 } from "@box/entities";
@@ -15,6 +14,7 @@ export const getModules: AppThunk = (id: number) => async (dispatch) => {
         blockId: id,
       },
     });
+    await dispatch(getCourseBlockById(id))
     dispatch(setModules(data.body));
   } catch (e) {
     throw e;

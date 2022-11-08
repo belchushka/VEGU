@@ -2,15 +2,19 @@ import React from "react";
 import EmptyAvatar from "@assets/icons/EmptyAvatar.png";
 import classNames from "classnames";
 import s from "./style.module.scss";
-import { IWithClass } from "@types";
+import {IUserAvatar} from "./types";
+import Image from "next/image";
 
-interface IUserAvatar extends IWithClass {
-  src?: string | null;
-  size?: "sm" | "md" | "lg" | "xl";
-  onClick?: () => void;
+const sizes = {
+  "xsm": s.avatar_sm,
+  "sm" : s.avatar_sm,
+  "md": s.avatar_md,
+  "lg": s.avatar_lg,
+  "xl": s.avatar_xl
 }
 
-const UserAvatar: React.FC<IUserAvatar> = ({
+
+export const UserAvatar: React.FC<IUserAvatar> = ({
   src,
   size = "md",
   onClick = () => null,
@@ -20,10 +24,7 @@ const UserAvatar: React.FC<IUserAvatar> = ({
     <div
       className={classNames(
         s.avatar,
-        { [s.avatar_sm]: size == "sm" },
-        { [s.avatar_md]: size == "md" },
-        { [s.avatar_lg]: size == "lg" },
-        { [s.avatar_xl]: size == "xl" },
+        sizes[size],
         className
       )}
       onClick={onClick}
@@ -33,4 +34,3 @@ const UserAvatar: React.FC<IUserAvatar> = ({
   );
 };
 
-export default UserAvatar;

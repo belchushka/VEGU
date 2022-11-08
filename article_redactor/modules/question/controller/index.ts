@@ -2,14 +2,13 @@ import {$autHost} from "@box/shared";
 import {ActionTypes} from "@box/article_redactor";
 import {ICreateControllerWithLoader} from "@box/article_redactor/modules/types";
 
-export function createTextController({meta, endpoint, loaderController, dispatch}: ICreateControllerWithLoader){
-    const createText = async ({text}:{text: string})=>{
+export function createQuestionController({meta, endpoint, loaderController, dispatch}: ICreateControllerWithLoader){
+    const createQuestion = async ({question}:{question: string})=>{
         const id = loaderController.createLoader("default")
-
         try {
             const {data} = await $autHost.post(endpoint, {
                 ...meta,
-                text,
+                question,
             })
             dispatch({
                 type:ActionTypes.SET_BLOCK,
@@ -18,11 +17,11 @@ export function createTextController({meta, endpoint, loaderController, dispatch
         }catch (e) {
             console.log(e);
         }
-
         loaderController.deleteLoader(id)
 
     }
-    const deleteText = async ({id}:{id: string})=>{
+
+    const deleteQuestion = async ({id}:{id: string})=>{
         try {
             const {data} = await $autHost.delete(endpoint, {
                 data:{
@@ -37,12 +36,12 @@ export function createTextController({meta, endpoint, loaderController, dispatch
             console.log(e);
         }
     }
-    const updateText = async ({id, position, text}:{id: string, position?: number, text?:string})=>{
+    const updateQuestion = async ({id, position, question}:{id: string, position?: number, question?:string})=>{
         try {
             const {data} = await $autHost.put(endpoint, {
                     id,
                     ...(position && {position}),
-                    ...(text && {text}),
+                    ...(question && {question}),
             })
             dispatch({
                 type:ActionTypes.SET_BLOCK,
@@ -54,8 +53,8 @@ export function createTextController({meta, endpoint, loaderController, dispatch
     }
 
     return {
-        updateText,
-        createText,
-        deleteText
+        updateQuestion,
+        createQuestion,
+        deleteQuestion
     }
 }

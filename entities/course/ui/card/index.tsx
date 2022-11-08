@@ -1,58 +1,30 @@
-import React, { useState } from "react";
+import React from "react";
 import s from "./style.module.scss";
 import classNames from "classnames";
-import { Button, Label } from "@box/shared";
-import { RequestModal } from "@box/features";
+import {Modal, useBoolean} from "@box/shared";
 import ContentLoader from "react-content-loader";
-import { useRouter } from "next/router";
-import { useTypedSelector } from "@box/store/hooks";
-import { ICourse, IType, selectCourseType } from "@box/entities";
-import { RoleType } from "@types";
-import { localeHours } from "@box/shared/lib";
-
-interface ICourseCard {
-  className?: string;
-  showPrice?: boolean;
-  type?: RoleType;
-  data: ICourse;
-  showButtons?: boolean;
-}
+import { localeHours } from "@box/shared";
+import {ICourseCard} from "./types";
+import {RequestCourseForm} from "@box/features";
 
 export const CourseCard: React.FC<ICourseCard> = ({
   className,
   showPrice = true,
-  type = "user",
   data,
-  showButtons = true,
+  buttons
 }) => {
-  const [showModal, setShowModal] = useState(false);
-  const course_type: IType | undefined = useTypedSelector(
-    selectCourseType(data.courseTypeId)
-  );
-  const router = useRouter();
-  const isAuth = useTypedSelector((state) => state.auth.isAuth);
-  const handleClick = () => {
-    if (isAuth) {
-      setShowModal(true);
-    } else {
-      router.push({
-        pathname: "/login",
-        query: {
-          to: router.asPath,
-        },
-      });
-    }
-  };
+  const {value, toggle} = useBoolean(false);
   return (
     <>
-      <RequestModal
-        visible={showModal}
-        data={data}
-        close={() => setShowModal(false)}
-      />
+      <Modal
+        visible={value}
+        close={toggle}
+      >
+        <RequestCourseForm courseId={data.id}/>
+      </Modal>
       <div className={classNames(s.body, className)}>
         <div className={s.body_labels}>
-          {course_type && <Label text={course_type.name} />}
+          {/*{course_type && <Label text={course_type.name} />}*/}
         </div>
         <h3>{data.name}</h3>
         <p className={s.body_time}>
@@ -60,66 +32,7 @@ export const CourseCard: React.FC<ICourseCard> = ({
         </p>
         {showPrice && <p className={s.body_price}>Бесплатно</p>}
         <div className={s.body_buttons}>
-          {(() => {
-            if (showButtons) {
-              switch (type) {
-                case "my":
-                  return (
-                    <Button
-                      width={132}
-                      onClick={() =>
-                        router.push("/my_courses/course/" + data.id)
-                      }
-                      type={"grey"}
-                    >
-                      <span>Пройти</span>
-                    </Button>
-                  );
-                case "admin":
-                  return (
-                    <>
-                      <Button
-                        onClick={() =>
-                          router.push("/catalog/course/" + data.id)
-                        }
-                        type={"gradient"}
-                        width={132}
-                      >
-                        <span>Подробнее</span>
-                      </Button>
-                      <Button
-                        type={"white"}
-                        width={132}
-                        onClick={() => router.push("/admin/course/" + data.id)}
-                      >
-                        <span>Редактировать</span>
-                      </Button>
-                    </>
-                  );
-                case "user":
-                  return (
-                    <>
-                      <Button
-                        onClick={handleClick}
-                        type={"gradient"}
-                        width={132}
-                      >
-                        <span>Записаться</span>
-                      </Button>
-                      <Button
-                        type={"white"}
-                        width={132}
-                        onClick={() =>
-                          router.push("/catalog/course/" + data.id)
-                        }
-                      >
-                        <span>Подробнее</span>
-                      </Button>
-                    </>
-                  );
-              }
-            }
-          })()}
+          {buttons}
         </div>
       </div>
     </>
@@ -144,3 +57,4 @@ export const CardLoader = () => {
     </ContentLoader>
   );
 };
+

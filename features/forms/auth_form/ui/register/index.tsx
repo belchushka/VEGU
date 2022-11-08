@@ -5,6 +5,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {useRouter} from "next/router";
 import {useLoading} from "@box/shared/hooks";
 import {register as registerFunc} from "../../model";
+import {appAlert} from "@box/entities";
 
 type RegisterFormValues = {
     email: string;
@@ -33,10 +34,11 @@ export const RegisterForm = () => {
                     await dispatch(
                         registerFunc(data.email, data.name, data.surname, data.password)
                     );
+                    appAlert("success", "Вы успешно зарегистрировались")
                     router.replace("/");
                 }
             } catch (e: any) {
-                console.log(e);
+                appAlert("error", "Неизвестная ошибка")
             }
             stopLoading();
         },

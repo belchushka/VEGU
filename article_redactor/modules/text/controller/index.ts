@@ -1,9 +1,11 @@
-import React from "react";
 import {$autHost} from "@box/shared";
-import {ActionTypes, ReducerAction} from "@box/article_redactor";
+import {ActionTypes} from "@box/article_redactor";
+import {ICreateControllerWithLoader} from "@box/article_redactor/modules/types";
 
-export function createTextController(endpoint: string, meta: {}, dispatch: React.Dispatch<ReducerAction>){
+export function createTextController({meta, endpoint, loaderController, dispatch}: ICreateControllerWithLoader){
     const createText = async ({text}:{text: string})=>{
+        const id = loaderController.createLoader("default")
+
         try {
             const {data} = await $autHost.post(endpoint, {
                 ...meta,
@@ -16,6 +18,9 @@ export function createTextController(endpoint: string, meta: {}, dispatch: React
         }catch (e) {
             console.log(e);
         }
+
+        loaderController.deleteLoader(id)
+
     }
     const deleteText = async ({id}:{id: string})=>{
         try {

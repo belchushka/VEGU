@@ -1,13 +1,24 @@
-import React from "react";
 import {$autHost} from "@box/shared";
-import {ActionTypes, ReducerAction} from "@box/article_redactor";
+import {ActionTypes} from "@box/article_redactor";
+import { ICreateControllerWithLoader} from "@box/article_redactor/modules/types";
 
-export function createTextController(endpoint: string, meta: {}, dispatch: React.Dispatch<ReducerAction>){
-    const createText = async ({text}:{text: string})=>{
+export function createImageController({meta,endpoint,dispatch,loaderController}: ICreateControllerWithLoader){
+    const createImage = async ({image}:{image: File})=>{
+        const id = loaderController.createLoader("progress")
+
         try {
             const {data} = await $autHost.post(endpoint, {
                 ...meta,
-                text,
+                image,
+            }, {
+                onUploadProgress: (progressEvent) => {
+                    if (progressEvent.progress) {
+                        loaderController.updateLoader(id, progressEvent.progress * 100)
+                    }
+                },
+                headers: {
+                    "Content-Type":"multipart/form-data"
+                }
             })
             dispatch({
                 type:ActionTypes.SET_BLOCK,
@@ -16,8 +27,9 @@ export function createTextController(endpoint: string, meta: {}, dispatch: React
         }catch (e) {
             console.log(e);
         }
+        loaderController.deleteLoader(id)
     }
-    const deleteText = async ({id}:{id: string})=>{
+    const deleteImage = async ({id}:{id: string})=>{
         try {
             const {data} = await $autHost.delete(endpoint, {
                 data:{
@@ -32,7 +44,7 @@ export function createTextController(endpoint: string, meta: {}, dispatch: React
             console.log(e);
         }
     }
-    const updateText = async ({id, position, text}:{id: string, position?: number, text?:string})=>{
+    const updateImage = async ({id, position, text}:{id: string, position?: number, text?:string})=>{
         try {
             const {data} = await $autHost.put(endpoint, {
                     id,
@@ -49,8 +61,7 @@ export function createTextController(endpoint: string, meta: {}, dispatch: React
     }
 
     return {
-        updateText,
-        createText,
-        deleteText
+        deleteImage,
+        createImage
     }
 }

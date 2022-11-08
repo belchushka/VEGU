@@ -1,10 +1,9 @@
-@import "@gstyle/variables.scss";
+@import "@styles/variables.scss";
 
 .body {
   border: 1px solid rgba(228, 230, 232, 0.6);
   border-radius: 16px;
   padding: 15px 25px;
-  font-family: $font_inter;
   background: white;
   box-shadow: 1px 2px 8px rgba(199, 200, 200, 0.21);
 

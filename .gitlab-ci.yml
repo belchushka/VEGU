@@ -1,0 +1,34 @@
+image: node:latest
+
+stages:
+  - build
+  - lint
+  - stage
+
+cache:
+  paths:
+    - node_modules/
+
+Install Dependencies:
+  stage: build
+  script:
+    - yarn install
+  tags:
+    - frontend-build
+
+Eslint:
+  stage: lint
+  script:
+    - yarn lint
+  tags:
+    - frontend-build
+
+Stage:
+  stage: stage
+  only:
+    - dev
+  script:
+    - docker-compose build
+    - docker-compose up -d
+  tags:
+    - frontend-stage

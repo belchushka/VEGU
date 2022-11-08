@@ -1,9 +1,10 @@
 .body {
-  border: 2px solid rgba(228, 230, 232, 0.6);
   border-radius: 12px;
-  padding: 35px 30px;
   background: white;
   transition: 0.5s;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 
   button {
     margin-top: 20px;

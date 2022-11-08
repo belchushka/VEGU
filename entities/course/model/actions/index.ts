@@ -2,13 +2,10 @@ import { AppThunk } from "@box/store";
 import { $autHost, $host } from "@box/shared";
 import {
   setCourse,
-  setCourses,
-  setPages,
-  setTotal,
-  setTypes,
+  setCourses, setCoursesPages, setCoursesTotal, setTypes,
 } from "@box/entities";
 
-export const newCourse: AppThunk =
+export const createCourse: AppThunk =
   (props: {
     name: string;
     description: string;
@@ -25,7 +22,15 @@ export const newCourse: AppThunk =
     }
   };
 
-export const getTypes: AppThunk = () => async (dispatch) => {
+export const updateCourse: AppThunk = (data) => async (dispatch) => {
+  try {
+    await $autHost.put("/course/update", data);
+  } catch (e) {
+    throw e;
+  }
+};
+
+export const getCourseTypes: AppThunk = () => async (dispatch) => {
   try {
     const { data: types } = await $host.get("/course-type/list");
     dispatch(setTypes(types.body));
@@ -37,30 +42,33 @@ export const getTypes: AppThunk = () => async (dispatch) => {
 export const getCourses: AppThunk = (props) => async (dispatch, getState) => {
   try {
     const state = getState();
+    const filters = Object.entries(state.course.filter).reduce((acc: {},el)=>{
+      return {
+        ...acc,
+        [el[0]]:el[1].join(",")
+      }
+    }, {})
     const { data } = await $host.get("/course/list", {
       params: {
         page: state.course.currentPage,
-        ...state.course.filter,
+        ...filters,
       },
     });
     const { data: pages } = await $host.get("/course/get-page-count", {
       params: {
-        ...state.course.filter,
+        ...filters,
       },
     });
     const { data: total } = await $host.get("/course/get-count", {
       params: {
-        ...state.course.filter,
+        ...filters,
       },
     });
-    const { data: types } = await $host.get("/course-type/list");
 
     dispatch(setCourses(data.body));
-    dispatch(setPages(pages.body.count));
-    dispatch(setTotal(total.body.count));
-    dispatch(setTypes(types.body));
+    dispatch(setCoursesPages(pages.body.count));
+    dispatch(setCoursesTotal(total.body.count));
   } catch (e) {
-    console.log(e);
     throw e;
   }
 };
@@ -68,10 +76,7 @@ export const getCourses: AppThunk = (props) => async (dispatch, getState) => {
 export const getCourse: AppThunk = (id) => async (dispatch) => {
   try {
     const { data: course } = await $host.get("/course/get/" + id);
-    const { data: types } = await $host.get("/course-type/list");
-
     dispatch(setCourse(course.body));
-    dispatch(setTypes(types.body));
   } catch (e) {
     throw e;
   }
@@ -87,17 +92,14 @@ export const getAdminCourses: AppThunk =
           ...state.course.filter,
         },
       });
-      const { data: types } = await $host.get("/course-type/list");
-
       dispatch(setCourses(data.body));
-      dispatch(setTypes(types.body));
     } catch (e) {
       console.log(e);
       throw e;
     }
   };
 
-export const getBoughtCourses: AppThunk =
+export const getMyCourses: AppThunk =
   (props) => async (dispatch, getState) => {
     try {
       const state = getState();
@@ -107,12 +109,9 @@ export const getBoughtCourses: AppThunk =
           ...state.course.filter,
         },
       });
-      const { data: types } = await $host.get("/course-type/list");
 
       dispatch(setCourses(data.body));
-      dispatch(setTypes(types.body));
     } catch (e) {
-      console.log(e);
       throw e;
     }
   };

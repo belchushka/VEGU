@@ -1,7 +1,7 @@
-import {createImageController} from "@box/article_redactor";
+import {createVideoController} from "@box/article_redactor/modules/video";
 
-export interface IImageModule {
-    controller: ReturnType<typeof createImageController>
+export interface IVideoModule {
+    controller: ReturnType<typeof createVideoController>
     data: {
         id: string,
         src: string

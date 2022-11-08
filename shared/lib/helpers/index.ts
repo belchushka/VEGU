@@ -1,5 +1,3 @@
-import { setCourses } from "@box/entities";
-
 export function declOfNum(n: number, text_forms: Array<string>): string {
   n = Math.abs(n) % 100;
   const n1 = n % 10;
@@ -51,3 +49,4 @@ export function shuffle(array: Array<any>) {
 
   return array;
 }
+

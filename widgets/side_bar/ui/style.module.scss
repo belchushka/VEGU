@@ -1,4 +1,4 @@
-@import "@gstyle/mixins.scss";
+@import "@styles/mixins.scss";
 
 .body {
   min-height: 100vh;
@@ -52,3 +52,61 @@
     align-items: center;
   }
 }
+
+
+.sidebar_item {
+  padding: 17px 30px;
+  cursor: pointer;
+  border-radius: 28px;
+  margin: 5px 0;
+  background: white;
+  position: relative;
+  overflow: hidden;
+
+  &_animate_balloon {
+    transition: 0.4s;
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    top: 20px;
+    background: #f5f5fa;
+    left: -10px;
+    border-radius: 0 50% 50% 0;
+  }
+
+  &_active &_animate_balloon {
+    top: 0;
+    width: 500px;
+    height: 400px;
+    @include adaptive("sm") {
+      width: 900px;
+      height: 900px;
+    }
+  }
+
+
+  &_content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 100;
+
+    p {
+      margin-left: 30px;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 21px;
+      color: #8083a3;
+    }
+
+    &_active {
+      p {
+        color: black;
+      }
+    }
+  }
+}
+
+

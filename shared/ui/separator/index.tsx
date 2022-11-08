@@ -1,11 +1,8 @@
 import React from "react";
 import s from "./style.module.scss";
+import {ISeparator} from "./types";
 
-interface ISeparator {
-  offset: number;
-}
-
-const SeparatorNowrap: React.FC<ISeparator> = ({ offset }) => {
+export const Separator: React.FC<ISeparator> = ({ offset }) => {
   return (
     <div
       className={s.separator}
@@ -16,5 +13,3 @@ const SeparatorNowrap: React.FC<ISeparator> = ({ offset }) => {
     ></div>
   );
 };
-
-export const Separator = React.memo(SeparatorNowrap);

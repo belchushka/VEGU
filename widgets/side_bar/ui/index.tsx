@@ -1,79 +1,75 @@
-import React, { useCallback, useState } from "react";
+import React, {useCallback, useState} from "react";
 import Logo from "@assets/icons/logo.svg";
 import s from "./style.module.scss";
-import { SideBarItem } from "@box/shared";
 import Exit from "@assets/icons/login-box-line.svg";
-import { useRouter } from "next/router";
-import { useLogout } from "@box/shared/hooks";
+import {useRouter} from "next/router";
 import Link from "next/link";
 import classNames from "classnames";
-import { CircledIcon } from "@box/shared";
-import Burger from "@assets/icons/burger.svg";
-import Cross from "@assets/icons/cross.svg";
+import {ISideBarItemComponent} from "../types";
+import {useTypedDispatch} from "@box/shared";
+import {logout} from "@box/entities";
+import {items} from "../lib";
 
-const SideBarNowrap = ({ items }: { items: Array<any> }) => {
-  const [showDropDown, setShowDropDown] = useState(false);
-  const router = useRouter();
-  const logout = useLogout();
-  const onClick = useCallback((route: string) => {
-    router.push(route);
-  }, []);
-  return (
-    <div className={s.body}>
-      <div className={s.mobile_header}>
-        <Link href={"/"}>
-          <Logo />
-        </Link>
-        <CircledIcon
-          size={46}
-          onClick={() => setShowDropDown(true)}
-          background={"#F5F5FA"}
+const SideBarItem: React.FC<ISideBarItemComponent> = ({
+                                                          icon,
+                                                          text,
+                                                          active,
+                                                          onClick,
+                                                      }) => {
+    return (
+        <div
+            className={classNames(s.sidebar_item, {[s.sidebar_item_active]: active})}
+            onClick={onClick}
         >
-          <Burger />
-        </CircledIcon>
-      </div>
-      <Link href={"/"}>
-        <Logo className={s.logo} />
-      </Link>
-      <div className={classNames(s.items, { [s.items_opened]: showDropDown })}>
-        <div className={s.mobile_header}>
-          <Link href={"/"}>
-            <Logo />
-          </Link>
-          <CircledIcon
-            size={46}
-            onClick={() => setShowDropDown(false)}
-            background={"#F5F5FA"}
-          >
-            <Cross />
-          </CircledIcon>
+            <div className={s.sidebar_item_animate_balloon}></div>
+            <div className={classNames(s.sidebar_item_content, {[s.sidebar_item_content_active]: active})}>
+                {icon({fill: active ? "#09121F" : "#8083A3"})}
+                <p>{text}</p>
+            </div>
         </div>
-        {items.map((el, num) => {
-          return (
-            <SideBarItem
-              key={num}
-              active={router.pathname == el.route}
-              onClick={() => {
-                setShowDropDown(false);
-                onClick(el.route);
-              }}
-              text={el.text}
-              icon={el.icon}
-            />
-          );
-        })}
-        <SideBarItem
-          active={false}
-          onClick={() => {
-            logout();
-            router.push("/");
-          }}
-          text={"Выйти"}
-          icon={() => <Exit fill={"#8083A3"} />}
-        />
-      </div>
-    </div>
-  );
+    );
+};
+
+const SideBarNowrap = () => {
+    const [showDropDown, setShowDropDown] = useState(false);
+    const router = useRouter();
+    const dispatch = useTypedDispatch()
+    const onClick = useCallback((route: string) => {
+        router.push(route);
+    }, []);
+    const exit = () => {
+        dispatch(logout())
+        router.push("/");
+    }
+    return (
+        <div className={s.body}>
+            <Link href={"/"}>
+                <Logo className={s.logo}/>
+            </Link>
+            <div className={classNames(s.items, {[s.items_opened]: showDropDown})}>
+                {items.map((el, num) => {
+                    return (
+                        <SideBarItem
+                            key={num}
+                            active={router.pathname == el.route}
+                            onClick={() => {
+                                setShowDropDown(false);
+                                onClick(el.route);
+                            }}
+                            text={el.text}
+                            icon={el.icon}
+                        />
+                    );
+                })}
+                <SideBarItem
+                    active={false}
+                    onClick={exit}
+                    text={"Выйти"}
+                    icon={Exit}
+                />
+            </div>
+        </div>
+    );
 };
 
 export const SideBar = React.memo(SideBarNowrap);

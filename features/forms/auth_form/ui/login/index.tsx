@@ -6,6 +6,7 @@ import {login} from "../../model";
 import {useRouter} from "next/router";
 import {useLoading} from "@box/shared/hooks";
 import Link from "next/link";
+import {appAlert} from "@box/entities";
 
 type LoginFormValues = {
     email: string;
@@ -22,20 +23,20 @@ export const LoginForm = () => {
     const router = useRouter();
     const {loading, startLoading, stopLoading} = useLoading();
     const onSubmit: SubmitHandler<LoginFormValues> = useCallback(
-      async (data) => {
-        startLoading();
-        try {
-          if (Object.keys(errors).length == 0) {
-            await dispatch(login(data.email, data.password));
-            // dispatch(callAlert("success", "Вы успешно авторизовались!"));
-            router.replace("/");
-          }
-        } catch (e: any) {
-            console.log(e);
-        }
-        stopLoading();
-      },
-      [errors]
+        async (data) => {
+            startLoading();
+            try {
+                if (Object.keys(errors).length == 0) {
+                    await dispatch(login(data.email, data.password));
+                    appAlert("success", "Вы успешно вошли")
+                    router.replace("/");
+                }
+            } catch (e: any) {
+                appAlert("error", "Неверный логин или пароль")
+            }
+            stopLoading();
+        },
+        [errors]
     );
     return (
         <div className={s.body}>

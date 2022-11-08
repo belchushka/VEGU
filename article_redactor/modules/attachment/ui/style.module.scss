@@ -1,4 +1,4 @@
-@import "@gstyle/variables.scss";
+@import "@styles/variables.scss";
 .body {
   .data {
     border: 1px solid rgba(228, 230, 232, 0.6);
@@ -10,7 +10,6 @@
 
     p {
       color: black;
-      font-family: $font-inter;
       margin-left: 10px;
       font-weight: 700;
       font-size: 16px;

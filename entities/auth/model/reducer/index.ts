@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IUser } from "@box/entities";
+import {IUser} from "@box/entities";
 
 interface IInitialState {
   token: null | string;
@@ -28,9 +28,9 @@ const authSlice = createSlice({
     setAuthUser(state, action) {
       state.user = action.payload;
     },
-    logout: () => initialState,
+    wipeSession: () => initialState,
   },
 });
 
 export const authReducer = authSlice.reducer;
-export const { setAuth, logout, setToken, setAuthUser } = authSlice.actions;
+export const { setAuth, wipeSession, setToken, setAuthUser } = authSlice.actions;

@@ -1,9 +1,11 @@
-import {createTextController} from "@box/article_redactor";
+import {createQuestionController} from "@box/article_redactor/modules/question";
+import {IBlock} from "@box/article_redactor";
 
-export interface ITextModule {
-    controller: ReturnType<typeof createTextController>
+export interface IQuestionModule {
+    controller: ReturnType<typeof createQuestionController>
     data: {
         id: string,
-        text: string
+        question: string,
+        answers: Array<IBlock>
     }
 }

@@ -1,0 +1,50 @@
+@import "@styles/mixins.scss";
+
+.body {
+  display: flex;
+  gap: 32px;
+  margin-top: 20px;
+
+  &_courses {
+    flex: 1 1 auto;
+    margin-top: -15px;
+  }
+
+  @include adaptive("xsm"){
+    flex-direction: column-reverse;
+
+  }
+}
+
+.banner {
+  width: 100%;
+  height: 210px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  h2 {
+    font-weight: 800;
+    font-size: 42px;
+    line-height: 51px;
+    color: #ffffff;
+
+    @include adaptive("xsm"){
+     font-size: 32px;
+
+    }
+  }
+}
+
+.search {
+  margin: auto;
+  transform: translateY(-50%);
+}
+
+.filters {
+  @include adaptive("xsm"){
+    width: 100%;
+
+  }
+}

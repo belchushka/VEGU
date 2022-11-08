@@ -2,19 +2,24 @@ import React from "react";
 import { AuthLayout } from "@box/layouts";
 import { RegisterForm } from "@box/features";
 import { Button } from "@box/shared";
-import { useRouter } from "next/router";
+import Link from "next/link";
+import Head from "next/head";
 
 const Index = () => {
-  const router = useRouter();
   return (
     <AuthLayout
       text={"Уже есть профиль?"}
       button={
-        <Button width={132} onClick={() => router.push("/login")} type={"grey"}>
-          <span>Войти</span>
-        </Button>
+          <Link href={"/login"}>
+              <Button width={152} size={"sm"} preset={"dark"} >
+                  Войти
+              </Button>
+          </Link>
       }
     >
+        <Head>
+            <title>Регистрация</title>
+        </Head>
       <RegisterForm />
     </AuthLayout>
   );

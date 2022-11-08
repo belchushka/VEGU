@@ -1,4 +1,4 @@
-@import "@gstyle/variables.scss";
+@import "@styles/variables.scss";
 
 .body {
   display: flex;
@@ -42,7 +42,6 @@
 
     span {
       color: black;
-      font: $font_inter;
       font-weight: 500;
       font-size: 16px;
     }

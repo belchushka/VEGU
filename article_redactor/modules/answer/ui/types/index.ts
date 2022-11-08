@@ -1,9 +1,10 @@
-import {createQuestionController} from "@box/article_redactor/modules/question";
+import {createAnswerController} from "@box/article_redactor";
 
-export interface IQuestionModule {
-    controller: ReturnType<typeof createQuestionController>
+export interface IAnswerModule {
+    controller: ReturnType<typeof createAnswerController>,
     data: {
         id: string,
-        question: string
+        isCorrect: boolean,
+        answer: string
     }
 }

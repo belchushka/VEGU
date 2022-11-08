@@ -5,6 +5,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {updateAvatar, updateInfo} from "../model";
 import {FileButton} from "@mantine/core";
 import {UserAvatar} from "@box/entities/user";
+import {appAlert} from "@box/entities";
 
 type UpdateFormValues = {
     name: string;
@@ -27,15 +28,21 @@ export const ProfileForm = () => {
                 surname: data.surname,
                 patronymic: data.patronymic,
             }))
-        } catch (e: any) {
+            appAlert("success","Изменения сохранены")
+
+        } catch (e) {
+            appAlert("error","Ошибка")
+
         }
     };
     const onAvatar = async (file: File | null) => {
         if (file) {
             try {
                 await dispatch(updateAvatar(file));
+                appAlert("success","Изменения сохранены")
 
             } catch (e) {
+                appAlert("error","Ошибка")
 
             }
         }

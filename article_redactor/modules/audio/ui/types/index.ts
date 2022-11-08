@@ -1,7 +1,7 @@
-import {createVideoController} from "@box/article_redactor/modules/video";
+import {createAudioController} from "@box/article_redactor";
 
-export interface IVideoModule {
-    controller: ReturnType<typeof createVideoController>
+export interface IAudioModule {
+    controller: ReturnType<typeof createAudioController>
     data: {
         id: string,
         src: string

@@ -1,0 +1,49 @@
+@import "@styles/variables.scss";
+
+.input_wrapper {
+  padding: 30px 20px 17px 20px;
+  position: relative;
+  border: 1px solid rgba(228, 230, 232, 0.6);
+  border-radius: 10px;
+  cursor: pointer;
+
+  span {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    color: #8083a3;
+    z-index: 1;
+    transition: 0.2s;
+  }
+
+  input {
+    z-index: 2;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+    color: #000000;
+    width: 100%;
+
+    &:focus ~ span,
+    &:not(:placeholder-shown) ~ span {
+      top: 12px;
+      transform: none;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 18px;
+      color: #000000;
+    }
+  }
+}
+
+.input_error {
+  margin: 5px 0 10px 0;
+  color: $error-red;
+  font-size: 14px;
+}

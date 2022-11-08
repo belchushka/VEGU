@@ -1,5 +1,4 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
-import Script from "next/script";
 
 class MyDocument extends Document {
   hydrate() {
@@ -8,7 +7,7 @@ class MyDocument extends Document {
         <Head>
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta media={"asd"} />
-          <title>Hello</title>
+          <title>ВЭГУ</title>
           <link
             rel="apple-touch-icon"
             sizes="180x180"

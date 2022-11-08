@@ -3,9 +3,10 @@ import { $autHost } from "@box/shared";
 import {
   addCourseBlock as addCourseBlockReducer,
   IBlock,
-  setCourseBlock as setCourseBlockReducer, setCourseBlocks,
+  setCourseBlock as setCourseBlockReducer,
   setCourseBlocks as setCourseBlocksReducer,
 } from "@box/entities/course_block";
+import {getCourse} from "@box/entities";
 
 export const getCourseBlocks: AppThunk = (id: number) => async (dispatch) => {
   try {
@@ -14,6 +15,7 @@ export const getCourseBlocks: AppThunk = (id: number) => async (dispatch) => {
         courseId: id,
       },
     });
+    await dispatch(getCourse(id))
     dispatch(setCourseBlocksReducer(data.body));
   } catch (e) {
     throw e;
@@ -64,7 +66,7 @@ export const deleteCourseBlock: AppThunk = (id: string) => async (dispatch) => {
         id: id,
       },
     });
-    dispatch(setCourseBlocks(data.body));
+    dispatch(setCourseBlocksReducer(data.body));
   } catch (e) {
     throw e;
   }

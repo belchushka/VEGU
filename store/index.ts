@@ -7,21 +7,17 @@ import {
 } from "@reduxjs/toolkit";
 import { createWrapper, HYDRATE, MakeStore } from "next-redux-wrapper";
 import {
-  courseReducer,
-  userReducer,
-  blockReducer,
-  authReducer,
-  moduleReducer,
   alertReducer,
+  authReducer, blockReducer, courseReducer, moduleReducer, userReducer,
 } from "@box/entities";
 
 const combinedReducers = combineReducers({
+  auth: authReducer,
   user: userReducer,
   course: courseReducer,
-  block: blockReducer,
-  auth: authReducer,
-  module: moduleReducer,
-  alert: alertReducer,
+  course_block: blockReducer,
+  block_module: moduleReducer,
+  alert: alertReducer
 });
 
 const rootReducer = (

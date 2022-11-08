@@ -1,22 +1,23 @@
 import React from "react";
 import { AuthLayout } from "@box/layouts";
 import { Button } from "@box/shared";
-import { useRouter } from "next/router";
-import { PasswordResetForm } from "@box/features/auth_form/ui/password_reset";
+import { PasswordResetForm } from "@box/features";
+import Link from "next/link";
 
 const Index = () => {
-  const router = useRouter();
   return (
-    <AuthLayout
-      text={"Уже есть профиль?"}
-      button={
-        <Button width={132} onClick={() => router.push("/login")} type={"grey"}>
-          <span>Войти</span>
-        </Button>
-      }
-    >
-      <PasswordResetForm />
-    </AuthLayout>
+      <AuthLayout
+          text={"Eще нет профиля"}
+          button={
+              <Link href={"/register"}>
+                  <Button size={"sm"} preset={"dark"} >
+                      Зарегистрироваться
+                  </Button>
+              </Link>
+          }
+      >
+          <PasswordResetForm />
+      </AuthLayout>
   );
 };
 

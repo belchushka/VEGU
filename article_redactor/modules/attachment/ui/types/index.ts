@@ -1,9 +1,10 @@
-import {createVideoController} from "@box/article_redactor/modules/video";
+import {createAttachmentController} from "@box/article_redactor";
 
-export interface IVideoModule {
-    controller: ReturnType<typeof createVideoController>
+export interface IAttachmentModule {
+    controller: ReturnType<typeof createAttachmentController>
     data: {
         id: string,
+        name: string
         src: string
     }
 }

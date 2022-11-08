@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { IWithChildren } from "@types";
 import { useRouter } from "next/router";
-import { useTypedSelector } from "@box/store/hooks";
-import { useLoading } from "@box/shared/hooks";
+import {useAuth, useLoading} from "@box/shared/hooks";
+import {IAuthGuard} from "./types";
 
-interface IWithAuth extends IWithChildren {}
 
-const AuthGuard: React.FC<IWithAuth> = ({ children }) => {
-  const isAuth = useTypedSelector((state) => state.auth.isAuth);
+const AuthGuard: React.FC<IAuthGuard> = ({ permissions,children }) => {
+  const isAuth = useAuth()
   const { loading, stopLoading, startLoading } = useLoading();
   const router = useRouter();
   useEffect(() => {

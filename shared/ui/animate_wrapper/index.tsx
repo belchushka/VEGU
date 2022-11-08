@@ -4,14 +4,12 @@ import { IWithChildren, IWithClass } from "@types";
 
 interface IAnimateWrapper extends IWithChildren, IWithClass {
   visible: boolean;
-  dropdown?: boolean;
 }
 
 export const AnimateWrapper: React.FC<IAnimateWrapper> = ({
   visible,
   children,
   className,
-  dropdown = true,
 }) => {
   return (
     <AnimatePresence initial={true} exitBeforeEnter={true}>
@@ -22,15 +20,12 @@ export const AnimateWrapper: React.FC<IAnimateWrapper> = ({
           }}
           initial={{
             opacity: 0,
-            ...(dropdown ? { height: "60px" } : {}),
           }}
           animate={{
             opacity: 1,
-            ...(dropdown ? { height: "auto" } : {}),
           }}
           exit={{
             opacity: 0,
-            ...(dropdown ? { height: "50px" } : {}),
           }}
           className={className}
         >

@@ -1,0 +1,30 @@
+
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 95px;
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    background: linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(0.33deg, #ab67ff -0.08%, #00d48a 98.98%) border-box;
+  }
+  p {
+    background: linear-gradient(134.33deg, #ab67ff -0.08%, #00d48a 98.98%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 28px;
+  }
+  border: 2px dashed transparent;
+  border-radius: 16px;
+  background: linear-gradient(#fff 0 0) padding-box,
+  linear-gradient(134.33deg, #ab67ff -0.08%, #00d48a 98.98%) border-box;
+  overflow: hidden;
+}

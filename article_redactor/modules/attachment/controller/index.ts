@@ -1,14 +1,22 @@
-import React from "react";
 import {$autHost} from "@box/shared";
-import {ActionTypes, ReducerAction} from "@box/article_redactor";
+import {ActionTypes} from "@box/article_redactor";
+import {ICreateControllerWithLoader} from "@box/article_redactor/modules/types";
 
-export function createVideoController(endpoint: string, meta: {}, dispatch: React.Dispatch<ReducerAction>){
-    const createVideo = async ({video}:{video: File})=>{
+export function createAttachmentController({meta,endpoint,dispatch,loaderController}: ICreateControllerWithLoader){
+    const createAttachment = async ({attachment, name}:{attachment: File, name: string})=>{
+        const id = loaderController.createLoader("progress")
+
         try {
             const {data} = await $autHost.post(endpoint, {
                 ...meta,
-                video,
+                attachment,
+                name
             }, {
+                onUploadProgress: (progressEvent) => {
+                    if (progressEvent.progress) {
+                        loaderController.updateLoader(id, progressEvent.progress * 100)
+                    }
+                },
                 headers: {
                     "Content-Type":"multipart/form-data"
                 }
@@ -20,8 +28,10 @@ export function createVideoController(endpoint: string, meta: {}, dispatch: Reac
         }catch (e) {
             console.log(e);
         }
+        loaderController.deleteLoader(id)
+
     }
-    const deleteVideo = async ({id}:{id: string})=>{
+    const deleteAttachment = async ({id}:{id: string})=>{
         try {
             const {data} = await $autHost.delete(endpoint, {
                 data:{
@@ -36,7 +46,7 @@ export function createVideoController(endpoint: string, meta: {}, dispatch: Reac
             console.log(e);
         }
     }
-    const updateVideo = async ({id, position, text}:{id: string, position?: number, text?:string})=>{
+    const updateAttachment = async ({id, position, text}:{id: string, position?: number, text?:string})=>{
         try {
             const {data} = await $autHost.put(endpoint, {
                     id,
@@ -53,7 +63,7 @@ export function createVideoController(endpoint: string, meta: {}, dispatch: Reac
     }
 
     return {
-        deleteVideo,
-        createVideo
+        createAttachment,
+        deleteAttachment
     }
 }

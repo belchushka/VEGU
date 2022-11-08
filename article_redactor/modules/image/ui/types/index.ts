@@ -1,9 +1,9 @@
-import {createTextController} from "@box/article_redactor";
+import {createImageController} from "@box/article_redactor";
 
-export interface ITextModule {
-    controller: ReturnType<typeof createTextController>
+export interface IImageModule {
+    controller: ReturnType<typeof createImageController>
     data: {
         id: string,
-        text: string
+        src: string
     }
 }

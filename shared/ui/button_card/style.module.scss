@@ -1,33 +1,35 @@
-@import "@gstyle/variables.scss";
+@import "@styles/variables.scss";
 
-.body {
+.button_card {
   padding: 17px 24px;
   border: 1px solid rgba(228, 230, 232, 0.6);
   border-radius: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: $font-inter;
 
-  h5 {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
-    /* identical to box height, or 150% */
+  &_content {
+    h5 {
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 24px;
+      display: flex;
+      align-items: center;
+      color: #000000;
+    }
 
-    display: flex;
-    align-items: center;
-
-    /* #000000/Primary */
-
-    color: #000000;
+    p {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 21px;
+      color: #8083a3;
+    }
   }
 
-  p {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
-    color: #8083a3;
+  &_buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
   }
 }

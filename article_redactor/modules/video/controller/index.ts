@@ -1,14 +1,20 @@
-import React from "react";
 import {$autHost} from "@box/shared";
-import {ActionTypes, ReducerAction} from "@box/article_redactor";
+import {ActionTypes} from "@box/article_redactor";
+import {ICreateControllerWithLoader} from "@box/article_redactor/modules/types";
 
-export function createImageController(endpoint: string, meta: {}, dispatch: React.Dispatch<ReducerAction>){
-    const createImage = async ({image}:{image: File})=>{
+export function createVideoController({loaderController, meta, endpoint, dispatch}: ICreateControllerWithLoader){
+    const createVideo = async ({video}:{video: File})=>{
+        const id = loaderController.createLoader("progress")
         try {
             const {data} = await $autHost.post(endpoint, {
                 ...meta,
-                image,
+                video,
             }, {
+                onUploadProgress: (progressEvent) => {
+                    if (progressEvent.progress) {
+                        loaderController.updateLoader(id, progressEvent.progress * 100)
+                    }
+                },
                 headers: {
                     "Content-Type":"multipart/form-data"
                 }
@@ -20,8 +26,9 @@ export function createImageController(endpoint: string, meta: {}, dispatch: Reac
         }catch (e) {
             console.log(e);
         }
+        loaderController.deleteLoader(id)
     }
-    const deleteImage = async ({id}:{id: string})=>{
+    const deleteVideo = async ({id}:{id: string})=>{
         try {
             const {data} = await $autHost.delete(endpoint, {
                 data:{
@@ -36,7 +43,7 @@ export function createImageController(endpoint: string, meta: {}, dispatch: Reac
             console.log(e);
         }
     }
-    const updateImage = async ({id, position, text}:{id: string, position?: number, text?:string})=>{
+    const updateVideo = async ({id, position, text}:{id: string, position?: number, text?:string})=>{
         try {
             const {data} = await $autHost.put(endpoint, {
                     id,
@@ -53,7 +60,7 @@ export function createImageController(endpoint: string, meta: {}, dispatch: Reac
     }
 
     return {
-        deleteImage,
-        createImage
+        deleteVideo,
+        createVideo
     }
 }

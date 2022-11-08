@@ -2,13 +2,14 @@ import {$autHost} from "@box/shared";
 import {ActionTypes} from "@box/article_redactor";
 import {ICreateControllerWithLoader} from "@box/article_redactor/modules/types";
 
-export function createQuestionController({meta, endpoint, loaderController, dispatch}: ICreateControllerWithLoader){
-    const createQuestion = async ({question}:{question: string})=>{
+export function createAnswerController({meta, endpoint, loaderController, dispatch}: ICreateControllerWithLoader){
+    const createAnswer = async ()=>{
         const id = loaderController.createLoader("default")
         try {
             const {data} = await $autHost.post(endpoint, {
                 ...meta,
-                question,
+                answer: "",
+                isCorrect: false
             })
             dispatch({
                 type:ActionTypes.SET_BLOCK,
@@ -20,7 +21,7 @@ export function createQuestionController({meta, endpoint, loaderController, disp
         loaderController.deleteLoader(id)
 
     }
-    const deleteQuestion = async ({id}:{id: string})=>{
+    const deleteAnswer = async ({id}:{id: string})=>{
         try {
             const {data} = await $autHost.delete(endpoint, {
                 data:{
@@ -35,25 +36,32 @@ export function createQuestionController({meta, endpoint, loaderController, disp
             console.log(e);
         }
     }
-    const updateQuestion = async ({id, position, question}:{id: string, position?: number, question?:string})=>{
+    const updateAnswer = async ({id, isCorrect, answer}:{id: string, isCorrect?: boolean, answer?:string}, fetch = true)=>{
         try {
-            const {data} = await $autHost.put(endpoint, {
-                    id,
-                    ...(position && {position}),
-                    ...(question && {question}),
-            })
             dispatch({
                 type:ActionTypes.SET_BLOCK,
-                block: data.body
+                block: {
+                    id,
+                    ...(answer && {answer}),
+                    ...(typeof isCorrect!=="undefined" && {isCorrect})
+                }
             })
+
+            if (fetch){
+                const {data} = await $autHost.put(endpoint, {
+                    id,
+                    ...(answer && {answer}),
+                    ...(typeof isCorrect!=="undefined" && {isCorrect}),
+                })
+            }
         }catch (e) {
             console.log(e);
         }
     }
 
     return {
-        updateQuestion,
-        createQuestion,
-        deleteQuestion
+        updateAnswer,
+        createAnswer,
+        deleteAnswer
     }
 }

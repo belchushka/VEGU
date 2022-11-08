@@ -1,6 +1,6 @@
-import {ICourse} from "@box/entities";
+import {IBlock} from "@box/entities";
 
 export interface IEditCourseForm {
-    course: ICourse,
+    block: IBlock,
     onSuccess?: ()=>void
 }

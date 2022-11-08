@@ -2,8 +2,12 @@ import React from 'react';
 import s from "./style.module.scss"
 import {Filter, useFetch, useTypedDispatch, useTypedSelector} from "@box/shared";
 import {clearCoursesFilters, getCourseTypes, setCoursesFilter} from "@box/entities";
+import {ICatalogFilters} from "./types";
+import classNames from "classnames";
 
-export const CatalogFilters = () => {
+export const CatalogFilters: React.FC<ICatalogFilters> = ({
+    className
+                                                          }) => {
     const dispatch = useTypedDispatch()
     const {loading} = useFetch({
         action: () => getCourseTypes()
@@ -25,7 +29,7 @@ export const CatalogFilters = () => {
     console.log(filters);
     const clear = () => dispatch(clearCoursesFilters())
     return (
-        <div className={s.catalog_filters}>
+        <div className={classNames(s.catalog_filters,className)}>
             <div className={s.catalog_filters_header}>
                 <p>Фильтры</p>
                 <p onClick={clear}>Очистить</p>

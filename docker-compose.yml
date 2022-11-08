@@ -1,0 +1,14 @@
+version: "2.2"
+
+services:
+  web:
+    container_name: web
+    build:
+      context: .
+    ports:
+      - 127.0.0.1:2000:5000
+    networks:
+      - web
+    restart: always
+networks:
+  web:

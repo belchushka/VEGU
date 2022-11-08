@@ -1,14 +1,11 @@
 import React from "react";
 import s from "./style.module.scss";
-
-interface ILabel {
-  text: string;
-}
+import {ILabel} from "./types";
 
 const LabelNowrap: React.FC<ILabel> = ({ text }) => {
   return (
     <div className={s.body}>
-      <span>{text}</span>
+      <p>{text}</p>
     </div>
   );
 };
